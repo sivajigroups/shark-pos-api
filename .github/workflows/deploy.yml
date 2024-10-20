@@ -35,5 +35,5 @@ jobs:
 
           # Install dependencies and restart the app with PM2
           npm install
-          pm2 restart all || pm2 start app.js
+          pm2 restart all || pm2 start src/index.js
         EOF
