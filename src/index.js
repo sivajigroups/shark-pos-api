@@ -4,7 +4,7 @@ const cors = require('cors');
 const routes = require('./routes');  // Import the central router file
 
 const app = express();
-const port = 80;  // Use whichever port your server runs on
+const port = 3000;  // Use whichever port your server runs on
 
 app.use(cors());
 app.use(express.json());
