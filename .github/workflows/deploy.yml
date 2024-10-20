@@ -1,4 +1,4 @@
-name: Deploy to staging
+name: Deploy to EC2
 
 on:
   push:
@@ -23,13 +23,17 @@ jobs:
     - name: Deploy application via SSH
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-          # Navigate to your app directory (adjust the path accordingly)
+          # Navigate to your app directory
           cd /var/www/html/sharkweb
-          
-          # Pull the latest changes
-          git pull origin main
 
-          # Install dependencies and restart the application
+          # If the directory is empty or not initialized, clone the repo
+          if [ ! -d ".git" ]; then
+            git clone https://github.com/sivajigroups/shark-pos-api.git .
+          else
+            git pull origin main
+          fi
+
+          # Install dependencies and restart the app with PM2
           npm install
-          pm2 restart all
+          pm2 restart all || pm2 start app.js
         EOF
