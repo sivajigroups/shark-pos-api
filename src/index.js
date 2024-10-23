@@ -13,9 +13,10 @@ app.use(express.json());
 app.use('/api', routes);
 
 // Connect to MongoDB
-mongoose.connect('mongodb://3.110.165.57:27017/shark')
+mongoose.connect('mongodb://admin:@Agent009@3.110.165.57:27017/shark')
     .then(() => console.log('MongoDB connected'))
     .catch((err) => console.error('MongoDB connection error:', err));
+
 
 // Start the server
 app.listen(port, () => {
