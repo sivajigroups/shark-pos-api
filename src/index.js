@@ -12,11 +12,12 @@ app.use(express.json());
 // Use the central router for all routes
 app.use('/api', routes);
 
-// Connect to MongoDB
-mongoose.connect('mongodb://admin:@Agent009@3.110.165.57:27017/shark')
+const password = 'Agent009';
+const uri = `mongodb://admin:${password}@3.110.165.57:27017/shark?authSource=admin`;
+
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected'))
     .catch((err) => console.error('MongoDB connection error:', err));
-
 
 // Start the server
 app.listen(port, () => {
